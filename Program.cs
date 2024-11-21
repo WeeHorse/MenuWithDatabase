@@ -2,8 +2,12 @@
 
 class Program
 {
+    
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        Database database = new();
+        var db = database.Connection();
+        var actions = new Actions(db);
+        new Menu(actions);
     }
 }
