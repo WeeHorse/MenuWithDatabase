@@ -21,11 +21,13 @@ public class Menu
         AskUser();
     }
 
-    private void AskUser()
+    private async void AskUser()
     {
         var response = Console.ReadLine();
         if (response is not null)
         {
+            string? id; // define for multiple use below
+            
             switch (response)
             {
                 case("1"):
@@ -34,20 +36,37 @@ public class Menu
                     break;
                 case("2"):
                     Console.WriteLine("Enter id to show details about one");
-                    var id = Console.ReadLine();
+                    id = Console.ReadLine();
                     if (id is not null)
                     { 
                         _actions.ShowOne(id);
                     }
                     break;
                 case("3"):
-                    Console.WriteLine("Enter details to add a new one");
+                    Console.WriteLine("Enter name (required)");
+                    var name = Console.ReadLine(); // required
+                    Console.WriteLine("Enter slogan");
+                    var slogan = Console.ReadLine(); // not required
+                    if (name is not null)
+                    {
+                        _actions.AddOne(name, slogan);
+                    }
                     break;
                 case("4"):
                     Console.WriteLine("Enter id to update one");
+                    id = Console.ReadLine();
+                    if (id is not null)
+                    { 
+                        _actions.UpdateOne(id);
+                    }
                     break;
                 case("5"):
                     Console.WriteLine("Enter id to delete one");
+                    id = Console.ReadLine();
+                    if (id is not null)
+                    { 
+                        _actions.DeleteOne(id);
+                    }
                     break;
                 case("9"):
                     Console.WriteLine("Quitting");

@@ -36,4 +36,48 @@ public class Actions
             }
         }
     }
+
+    public async void AddOne(string name, string? slogan)
+    {
+        // Insert data
+        await using (var cmd = _db.CreateCommand("INSERT INTO items (name, slogan) VALUES ($1, $2)"))
+        {
+            cmd.Parameters.AddWithValue(name);
+            cmd.Parameters.AddWithValue(slogan);
+            await cmd.ExecuteNonQueryAsync();
+        }
+    }
+
+    public async void UpdateOne(string id)
+    {
+        Console.WriteLine("Current entry:");
+        ShowOne(id);
+        Console.WriteLine("Enter updated name (required)");
+        var name = Console.ReadLine(); // required
+        Console.WriteLine("Enter updated slogan");
+        var slogan = Console.ReadLine(); // not required
+        if (name is not null)
+        {
+            // Update data
+            await using (var cmd = _db.CreateCommand("UPDATE items SET name = $2, slogan = $3 WHERE id = $1"))
+            {
+                cmd.Parameters.AddWithValue(int.Parse(id));
+                cmd.Parameters.AddWithValue(name);
+                cmd.Parameters.AddWithValue(slogan);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            
+        }
+    }
+    
+    public async void DeleteOne(string id)
+    {
+        // Delete data
+        await using (var cmd = _db.CreateCommand("DELETE FROM items WHERE id = $1"))
+        {
+            cmd.Parameters.AddWithValue(int.Parse(id));
+            await cmd.ExecuteNonQueryAsync();
+        }
+    }
+    
 }
