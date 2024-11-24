@@ -5,12 +5,15 @@ public class Menu
     Actions _actions;
     public Menu(Actions actions)
     {
+        // constructorn tar emot actions 
         _actions = actions;
+        // och startar menyn
         PrintMenu();
     }
-
+    
     private void PrintMenu()
     {
+        // skriver ut menyn i konsolen
         Console.WriteLine("Choose option");
         Console.WriteLine("1. List all");
         Console.WriteLine("2. Show one");
@@ -18,16 +21,19 @@ public class Menu
         Console.WriteLine("4. Update one");
         Console.WriteLine("5. Delete one");
         Console.WriteLine("9. Quit");
+        // lyssnar på användaren
         AskUser();
     }
 
     private async void AskUser()
     {
+        // tar emot vad användaren skriver
         var response = Console.ReadLine();
         if (response is not null)
         {
             string? id; // define for multiple use below
             
+            // kör olika actions beroende på vad användaren skrivit
             switch (response)
             {
                 case("1"):
